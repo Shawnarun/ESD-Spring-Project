@@ -1,11 +1,6 @@
 package com.shawnarun.firstproject.Service;
 
-import org.springframework.stereotype.Service;
+public interface TestService {
+    public String getMessage();
 
-@Service
-public class TestService {
-
-    public String getMessage(){
-        return "Welcome to Developers Stack Academy, Hello Team";
-    }
 }

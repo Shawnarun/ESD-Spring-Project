@@ -20,9 +20,7 @@ private TestService t1;
 
 @GetMapping(path = "/message")
 private ResponseEntity<StandardResponse> message(){
-
     String data = t1.getMessage();
-
     return new ResponseEntity<>(new StandardResponse(
             "Successfully API Worked",
             200,
