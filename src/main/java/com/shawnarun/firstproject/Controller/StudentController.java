@@ -27,7 +27,7 @@ public class StudentController {
         return new ResponseEntity<>(new StandardResponse(
                 "Data Received",
                 200,
-                dto.getNic()
+               studentService.getStudent(dto)
         ),
                 HttpStatus.OK);
     }
