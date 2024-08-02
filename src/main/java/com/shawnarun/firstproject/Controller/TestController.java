@@ -2,7 +2,10 @@ package com.shawnarun.firstproject.Controller;
 
 
 import com.shawnarun.firstproject.Service.TestService;
+import com.shawnarun.firstproject.Util.StandardResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,12 +15,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = "/api/v1/test")
 public class TestController {
 
-    @Autowired
-    private TestService t1;
+@Autowired
+private TestService t1;
 
 @GetMapping(path = "/message")
-private String message(){
-    return t1.getMessage();
+private ResponseEntity<StandardResponse> message(){
+
+    String data = t1.getMessage();
+
+    return new ResponseEntity<>(new StandardResponse(
+            "Successfully API Worked",
+            200,
+            data
+    ),HttpStatus.OK);
+
+
 }
 
 
