@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -48,5 +49,33 @@ public class StudentServiceImpl implements StudentService {
 
 
         return arrayList;
+    }
+
+
+    public String deleteStudent(long id) {
+
+        Optional<Student> student = studentRepo.findById(id);
+
+        if(student.isEmpty()){
+            throw new RuntimeException("Student Doesnt Exist");
+        }
+
+        studentRepo.delete(student.get());
+        return student.get().getName();
+    }
+
+    @Override
+    public String updateStudent(RequestStudentDTO dto, long id) {
+        Optional<Student> student = studentRepo.findById(id);
+        if(student.isEmpty()){
+            throw new RuntimeException("Student Doesnt Exist");
+        }
+
+        student.get().setName(dto.getFullName());
+        student.get().setAge(dto.getAge());
+        student.get().setNic(dto.getNic());
+
+        studentRepo.save(student.get());
+        return dto.getFullName();
     }
 }
