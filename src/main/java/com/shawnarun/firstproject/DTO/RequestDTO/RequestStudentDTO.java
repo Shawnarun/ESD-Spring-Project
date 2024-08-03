@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RequestStudentDTO {
     private String fullName;
-    private String age;
+    private int age;
     private String nic;
 }

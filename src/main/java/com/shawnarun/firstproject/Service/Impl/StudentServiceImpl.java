@@ -2,17 +2,51 @@ package com.shawnarun.firstproject.Service.Impl;
 
 import com.shawnarun.firstproject.DTO.RequestDTO.RequestStudentDTO;
 import com.shawnarun.firstproject.DTO.ResponseDTO.ResponseStudentDTO;
+import com.shawnarun.firstproject.Entity.Student;
+import com.shawnarun.firstproject.Repo.StudentRepo;
 import com.shawnarun.firstproject.Service.StudentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class StudentServiceImpl implements StudentService {
 
-    public ResponseStudentDTO getStudent(RequestStudentDTO dto) {
-        return new ResponseStudentDTO(
+    @Autowired
+    private StudentRepo studentRepo;
+
+    public String saveStudent(RequestStudentDTO dto) {
+
+        Student student = new Student(
                 dto.getFullName(),
-                dto.getAge(),
-                dto.getNic()
+                dto.getNic(),
+                dto.getAge()
         );
+
+        studentRepo.save(student);
+
+        return dto.getFullName();
+    }
+
+
+    public List<ResponseStudentDTO> getAllStudents() {
+        ArrayList<ResponseStudentDTO> arrayList = new ArrayList<>();
+
+        List<Student> students = studentRepo.findAll();
+
+        for (Student s : students){
+              arrayList.add(
+                      new ResponseStudentDTO(
+                             s.getName(),
+                             s.getAge(),
+                             s.getNic()
+                      )
+              );
+        }
+
+
+        return arrayList;
     }
 }
