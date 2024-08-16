@@ -60,7 +60,18 @@ public class StudentController {
         ),HttpStatus.OK);
     }
 
+    @GetMapping(path = "/get-all-paginated", params = {"size","page"})
+private ResponseEntity<StandardResponse> getAllPaginated(
+        @RequestParam int size,
+        @RequestParam int page
 
+){
+        return new ResponseEntity<>(new StandardResponse(
+                "Fetched All Paginated Resposne",
+                200,
+                studentService.getPaginated(size,page)
+        ),HttpStatus.OK);
+}
 
 
  @DeleteMapping(path = "/delete/{id}")

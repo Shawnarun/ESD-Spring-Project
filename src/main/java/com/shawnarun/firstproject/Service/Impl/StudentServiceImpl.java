@@ -6,8 +6,11 @@ import com.shawnarun.firstproject.Entity.Student;
 import com.shawnarun.firstproject.Repo.StudentRepo;
 import com.shawnarun.firstproject.Service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Pageable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -83,12 +86,30 @@ public class StudentServiceImpl implements StudentService {
     public ResponseStudentDTO getById(long id) {
         Optional<Student> student = studentRepo.findById(id);
         if(student.isEmpty()){
-            throw new RuntimeException("Student Doesnt Exist");
+            throw new RuntimeException();
         }
         return new ResponseStudentDTO(
                 student.get().getName(),
                 student.get().getAge(),
                 student.get().getNic()
         );
+    }
+
+    @Override
+    public List<ResponseStudentDTO> getPaginated(int size, int page) {
+        List<ResponseStudentDTO> list = new ArrayList<>();
+
+        List<Student> studentList = studentRepo.findAllPaginated(PageRequest.of(page,size));
+
+        for (Student s : studentList){
+            list.add(
+                    new ResponseStudentDTO(
+                            s.getName(),
+                            s.getAge(),
+                            s.getNic()
+                    )
+            );
+        }
+        return list;
     }
 }

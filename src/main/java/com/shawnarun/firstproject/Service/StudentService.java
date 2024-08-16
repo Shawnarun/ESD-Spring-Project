@@ -16,4 +16,6 @@ public interface StudentService {
      String updateStudent(RequestStudentDTO dto, long id);
 
      ResponseStudentDTO getById(long id);
+
+     List<ResponseStudentDTO> getPaginated(int size, int page);
 }
