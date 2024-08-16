@@ -78,4 +78,17 @@ public class StudentServiceImpl implements StudentService {
         studentRepo.save(student.get());
         return dto.getFullName();
     }
+
+    @Override
+    public ResponseStudentDTO getById(long id) {
+        Optional<Student> student = studentRepo.findById(id);
+        if(student.isEmpty()){
+            throw new RuntimeException("Student Doesnt Exist");
+        }
+        return new ResponseStudentDTO(
+                student.get().getName(),
+                student.get().getAge(),
+                student.get().getNic()
+        );
+    }
 }

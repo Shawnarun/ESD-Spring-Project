@@ -49,6 +49,20 @@ public class StudentController {
     }
 
 
+    @GetMapping(path = "/get-by-id/{id}")
+    private ResponseEntity<StandardResponse> getById(
+            @PathVariable long id
+    ){
+        return new ResponseEntity<>(new StandardResponse(
+                "Student Record Fetched",
+                200,
+                studentService.getById(id)
+        ),HttpStatus.OK);
+    }
+
+
+
+
  @DeleteMapping(path = "/delete/{id}")
 private ResponseEntity<StandardResponse> deleteStudent(
         @PathVariable long id

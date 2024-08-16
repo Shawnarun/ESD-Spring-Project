@@ -25,4 +25,5 @@ public class Student {
         this.nic=nic;
         this.age=age;
     }
+
 }

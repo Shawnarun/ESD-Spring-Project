@@ -14,4 +14,6 @@ public interface StudentService {
      String deleteStudent(long id);
 
      String updateStudent(RequestStudentDTO dto, long id);
+
+     ResponseStudentDTO getById(long id);
 }
