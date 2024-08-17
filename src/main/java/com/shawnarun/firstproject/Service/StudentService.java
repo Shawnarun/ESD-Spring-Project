@@ -18,4 +18,10 @@ public interface StudentService {
      ResponseStudentDTO getById(long id);
 
      List<ResponseStudentDTO> getPaginated(int size, int page);
+
+     List<ResponseStudentDTO> getAllBySearch(int size, int page, String searchText);
+
+     List<ResponseStudentDTO> getAllByAge(int size, int page, int age);
+
+     List<ResponseStudentDTO> getAllByAgeAndSearch(int size, int page, int age, String searchText);
 }

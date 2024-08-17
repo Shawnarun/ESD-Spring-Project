@@ -15,5 +15,12 @@ public interface StudentRepo extends JpaRepository<Student,Long> {
 
     @Query(value = "SELECT * FROM student ", nativeQuery = true)
     List<Student> findAllPaginated(PageRequest of);
-    
+
+    @Query(value = "SELECT * FROM student WHERE full_name LIKE %?1% OR nic LIKE %?1%", nativeQuery = true)
+    List<Student> findAllBySearchText(String searchText,PageRequest of);
+
+    @Query(value = "SELECT * FROM student WHERE age >= ?1", nativeQuery = true)
+    List<Student> findAllByAge(int age, PageRequest of);
+    @Query(value = "SELECT * FROM student WHERE age>=?2 AND full_name LIKE %?1%", nativeQuery = true)
+    List<Student> findAllByAgeAndSearch(String searchText, int age, PageRequest of);
 }

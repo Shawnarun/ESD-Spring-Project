@@ -112,4 +112,58 @@ public class StudentServiceImpl implements StudentService {
         }
         return list;
     }
+
+    @Override
+    public List<ResponseStudentDTO> getAllBySearch(int size, int page, String searchText) {
+        List<ResponseStudentDTO> list = new ArrayList<>();
+
+        List<Student> studentList = studentRepo.findAllBySearchText(searchText,PageRequest.of(page,size));
+
+        for (Student s : studentList){
+            list.add(
+                    new ResponseStudentDTO(
+                            s.getName(),
+                            s.getAge(),
+                            s.getNic()
+                    )
+            );
+        }
+        return list;
+    }
+
+    @Override
+    public List<ResponseStudentDTO> getAllByAge(int size, int page, int age) {
+        List<ResponseStudentDTO> list = new ArrayList<>();
+
+        List<Student> studentList = studentRepo.findAllByAge(age,PageRequest.of(page,size));
+
+        for (Student s : studentList){
+            list.add(
+                    new ResponseStudentDTO(
+                            s.getName(),
+                            s.getAge(),
+                            s.getNic()
+                    )
+            );
+        }
+        return list;
+    }
+
+    @Override
+    public List<ResponseStudentDTO> getAllByAgeAndSearch(int size, int page, int age, String searchText) {
+        List<ResponseStudentDTO> list = new ArrayList<>();
+
+        List<Student> studentList = studentRepo.findAllByAgeAndSearch(searchText,age,PageRequest.of(page,size));
+
+        for (Student s : studentList){
+            list.add(
+                    new ResponseStudentDTO(
+                            s.getName(),
+                            s.getAge(),
+                            s.getNic()
+                    )
+            );
+        }
+        return list;
+    }
 }

@@ -61,7 +61,7 @@ public class StudentController {
     }
 
     @GetMapping(path = "/get-all-paginated", params = {"size","page"})
-private ResponseEntity<StandardResponse> getAllPaginated(
+        private ResponseEntity<StandardResponse> getAllPaginated(
         @RequestParam int size,
         @RequestParam int page
 
@@ -72,6 +72,49 @@ private ResponseEntity<StandardResponse> getAllPaginated(
                 studentService.getPaginated(size,page)
         ),HttpStatus.OK);
 }
+
+    @GetMapping(path = "/get-all-search", params = {"size","page","searchText"})
+    private ResponseEntity<StandardResponse> getAllBySearchText(
+            @RequestParam int size,
+            @RequestParam int page,
+            @RequestParam String searchText
+
+    ){
+        return new ResponseEntity<>(new StandardResponse(
+                "Fetched All Paginated Response BY Search",
+                200,
+                studentService.getAllBySearch(size,page,searchText)
+        ),HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/get-all-age", params = {"size","page","age"})
+    private ResponseEntity<StandardResponse> getAllByAge(
+            @RequestParam int size,
+            @RequestParam int page,
+            @RequestParam int age
+
+    ){
+        return new ResponseEntity<>(new StandardResponse(
+                "Fetched All Paginated Response BY Age",
+                200,
+                studentService.getAllByAge(size,page,age)
+        ),HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/get-all-age-with-search", params = {"size","page","age","searchText"})
+    private ResponseEntity<StandardResponse> getAllByAgeAndSearchText(
+            @RequestParam int size,
+            @RequestParam int page,
+            @RequestParam int age,
+            @RequestParam String searchText
+
+    ){
+        return new ResponseEntity<>(new StandardResponse(
+                "Fetched All Paginated Response",
+                200,
+                studentService.getAllByAgeAndSearch(size,page,age,searchText)
+        ),HttpStatus.OK);
+    }
 
 
  @DeleteMapping(path = "/delete/{id}")
